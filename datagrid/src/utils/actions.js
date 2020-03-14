@@ -1,2 +1,2 @@
 export const RND = () => ({ type: 'RND' });
-export const ShowJSON = () => ({ type: 'ShowJSON' });
+export const DeleteElement = () => ({ type: 'DeleteElement' });

@@ -1,17 +1,22 @@
 import DATA from './DATAJSON';
 
-const reducer = (state = DATA, action) => {
-  switch (action.type) {
-    // case 'RND': {
-    //   return state + 1;
-    // }
 
-    case 'ShowJSON': {
-      return DATA;
+const reducer = (state = {
+  original: [...DATA],
+  visible: [...DATA]
+},
+  action) => {
+  switch (action.type) {
+
+    case 'DeleteElement': {
+      state.visible.pop();
+      state.visible.shift();
+      return {
+        ...state,
+        visible: [...state.visible],
+      }
     }
-    // case 'toggleVirtualize': {
-    //   return !state;
-    // }
+
     default: return state;
   }
 };

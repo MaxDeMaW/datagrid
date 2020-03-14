@@ -1,9 +1,11 @@
 import React from 'react';
 import './datagrid.scss';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../utils/actions';
+import { connect } from 'react-redux';
 
-
-const DataGrid = ({ listPerson }) => {
-  const persons = listPerson.map(item => {
+const DataGrid = ({ allVisiblePersons, DeleteElement }) => {
+  const persons = allVisiblePersons.map(item => {
     const { id, ...itemProps } = item;
     return (
       <div key={id} className="person">
@@ -20,19 +22,36 @@ const DataGrid = ({ listPerson }) => {
 
   return <div>
     <div key={-1} className="person_header">
-      <div className="person__name">Имя</div>
+      <div className="person__name"><div>Имя</div><div><i className="demo-icon icon-angle-circled-up" onClick={DeleteElement}></i><i className="demo-icon icon-angle-circled-down"></i></div></div>
       <div className="person__email">E-mail</div>
       <div className="person__city">City</div>
       <div className="person__phone">Phone</div>
       <div className="person__birthday">Birthday</div>
       <div className="person__experience">Experience</div>
-      <div className="person__isMarried">Married</div>
+      <div className="person__isMarried">Married  <div><i className="demo-icon icon-angle-circled-up"></i><i className="demo-icon icon-angle-circled-down"></i></div></div>
     </div>
 
     {persons}
   </div>;
 }
 
-export default DataGrid;
+
+const mapStateToProps = (state) => {
+  return {
+    allVisiblePersons: state.visible
+  }
+};
+
+
+
+const mapDispatchToProps = (dispatch) => {
+  const { DeleteElement } = bindActionCreators(actions, dispatch);
+
+  return {
+    DeleteElement
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);
 
 

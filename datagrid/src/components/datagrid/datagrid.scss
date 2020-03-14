@@ -6,9 +6,12 @@
 
 .person {
   display: flex;
+  border: 1px solid #80808036;
 }
 
 .person__name {
+  display: flex;
+  justify-content: space-between;
   width: 200px;
   overflow: hidden;
   white-space: nowrap;
@@ -39,13 +42,15 @@
   text-overflow: ellipsis;
 }
 .person__experience {
-  width: 30px;
+  width: 100px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 .person__isMarried {
-  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  width: 130px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
