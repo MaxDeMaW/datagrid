@@ -37,7 +37,7 @@ const reducer = (state = {
 
     case 'Search': {
 
-      const sst = document.querySelector('.searchBar').value;
+      const sst = document.querySelector('.searchBar').value.toLowerCase();
       const resultSearch = state.visible.filter(function (e) {
         return (e.name.toLowerCase().indexOf(sst) > -1) || (e.city.toLowerCase().indexOf(sst) > -1);
       });
