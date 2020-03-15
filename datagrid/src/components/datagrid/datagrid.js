@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../utils/actions';
 import { connect } from 'react-redux';
 
-const DataGrid = ({ allVisiblePersons, DeleteElement }) => {
+const DataGrid = ({ allVisiblePersons, DeleteElement, SortByExperience }) => {
   const persons = allVisiblePersons.map(item => {
     const { id, ...itemProps } = item;
     return (
@@ -27,8 +27,8 @@ const DataGrid = ({ allVisiblePersons, DeleteElement }) => {
       <div className="person__city">City</div>
       <div className="person__phone">Phone</div>
       <div className="person__birthday">Birthday</div>
-      <div className="person__experience">Experience</div>
-      <div className="person__isMarried">Married  <div><i className="demo-icon icon-angle-circled-up"></i><i className="demo-icon icon-angle-circled-down"></i></div></div>
+      <div className="person__experience"><div>Experience <i className="demo-icon icon-angle-circled-up" onClick={SortByExperience}></i><i className="demo-icon icon-angle-circled-down"></i></div></div>
+      <div className="person__isMarried">Married</div>
     </div>
 
     {persons}
@@ -45,10 +45,12 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => {
-  const { DeleteElement } = bindActionCreators(actions, dispatch);
+  const { DeleteElement, RefreshTable, SortByExperience } = bindActionCreators(actions, dispatch);
 
   return {
-    DeleteElement
+    DeleteElement,
+    RefreshTable,
+    SortByExperience
   }
 };
 
