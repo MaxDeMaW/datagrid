@@ -1,0 +1,98 @@
+.person_header {
+  position: sticky;
+  top: 42px;
+  z-index: 300;
+  display: inline-flex;
+  color: black;
+  background: #ffddb8;
+  border-bottom: 2px solid black;
+}
+
+.sortByMarried .person .person__isMarried {
+  background: rgb(224, 224, 224);
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.sortByExperience .person .person__experience {
+  background: rgb(224, 224, 224);
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.sortByName .person .person__name {
+  background: rgb(224, 224, 224);
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.person {
+  display: inline-flex;
+  border: 1px solid #80808036;
+}
+
+.person__name {
+  position: sticky;
+  left: 0;
+  z-index: 101;
+  display: flex;
+  justify-content: space-between;
+  min-width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: white;
+}
+
+.person_header .person__name {
+  background: #ffddb8;
+  border-bottom: 1px solid black;
+}
+.person__email {
+  min-width: 350px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.person__city {
+  min-width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.person__phone {
+  min-width: 170px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.person__birthday {
+  min-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.person__experience {
+  min-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.person__isMarried {
+  display: flex;
+  justify-content: space-between;
+  width: 130px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tableContent {
+  position: relative;
+  top: 42px;
+}
+
+.selected .person__name,
+.selected {
+  background: #ffddb8;
+}
