@@ -3,9 +3,27 @@
   top: 42px;
   z-index: 300;
   display: inline-flex;
-  color: red;
-  background: white;
+  color: black;
+  background: #ffddb8;
   border-bottom: 2px solid black;
+}
+
+.sortByMarried .person .person__isMarried {
+  background: rgb(224, 224, 224);
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.sortByExperience .person .person__experience {
+  background: rgb(224, 224, 224);
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.sortByName .person .person__name {
+  background: rgb(224, 224, 224);
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
 
 .person {
@@ -24,6 +42,11 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   background: white;
+}
+
+.person_header .person__name {
+  background: #ffddb8;
+  border-bottom: 1px solid black;
 }
 .person__email {
   min-width: 350px;
@@ -67,4 +90,9 @@
 .tableContent {
   position: relative;
   top: 42px;
+}
+
+.selected .person__name,
+.selected {
+  background: #ffddb8;
 }

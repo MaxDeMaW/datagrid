@@ -4,21 +4,27 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../utils/actions';
 import { connect } from 'react-redux';
 
-const onCkeckPerson = (event) => {
-  if (event.target.className === 'demo-icon icon-check-empty')
-    console.log(event.target.className);
 
+const changeColorSortedColumn = (event) => {
+
+  if (event.target.parentElement.parentElement.className === 'person__name') {
+    document.querySelector('#mainGrid').className = "tableContent sortByName";
+  }
+  if (event.target.parentElement.parentElement.className === 'person__experience') {
+    document.querySelector('#mainGrid').className = "tableContent sortByExperience";
+  }
+  if (event.target.parentElement.className === 'person__isMarried') {
+    document.querySelector('#mainGrid').className = "tableContent sortByMarried";
+  }
 }
 
-const DataGrid = ({ allVisiblePersons, DeleteElement, SortByExperienceUp, SortByExperienceDown, SortByTrue }) => {
-
-
+const DataGrid = ({ allVisiblePersons, SortByExperienceUp, SortByExperienceDown, SortByTrue, SortByName, selectRow }) => {
 
   const persons = allVisiblePersons.map(item => {
     const { id, ...itemProps } = item;
     return (
       <div key={id} id={id} className="person">
-        <div><i className="demo-icon icon-check-empty" onClick={(e) => onCkeckPerson(e)}></i></div>
+        <div className="selectorROW"><i className="demo-icon icon-check-empty"></i></div>
         <div className="person__name">{itemProps.name}</div>
         <div className="person__email">{itemProps.email}</div>
         <div className="person__city">{itemProps.city}</div>
@@ -30,12 +36,12 @@ const DataGrid = ({ allVisiblePersons, DeleteElement, SortByExperienceUp, SortBy
     );
   });
 
-  return <div className="tableContent">
-    <div key={-1} className="person_header">
+  return <div className="tableContent" id="mainGrid" onClick={(e) => selectRow(e)}>
+    <div key={-1} className="person_header" onClick={(e) => changeColorSortedColumn(e)}>
       <div><i className="demo-icon icon-check-empty"></i></div>
       <div className="person__name">
         <div>Имя</div>
-        <div><i className="demo-icon icon-angle-circled-up" onClick={DeleteElement}></i><i className="demo-icon icon-angle-circled-down"></i></div>
+        <div><i className="demo-icon icon-angle-circled-up" onClick={SortByName}></i></div>
       </div>
 
       <div className="person__email">E-mail</div>
@@ -60,17 +66,18 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => {
-  const { DeleteElement, RefreshTable, SortByExperienceUp, SortByExperienceDown, SortByTrue } = bindActionCreators(actions, dispatch);
+  const { RefreshTable, SortByExperienceUp, SortByExperienceDown, SortByTrue, SortByName, selectRow } = bindActionCreators(actions, dispatch);
 
   return {
-    DeleteElement,
     RefreshTable,
     SortByExperienceUp,
     SortByExperienceDown,
-    SortByTrue
+    SortByTrue,
+    SortByName,
+    selectRow
   }
 };
-
+connect(mapStateToProps, mapDispatchToProps)(DataGrid);
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);
 
 

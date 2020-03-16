@@ -4,26 +4,64 @@ import DATA from './DATAJSON';
 const reducer = (state = {
   original: [...DATA],
   visible: [...DATA],
-  searchString: 'arm'
+  searchString: 'arm',
+  selectedRows: []
 },
   action) => {
   switch (action.type) {
 
-    case 'DeleteElement': {
-      state.visible.pop();
-      state.visible.shift();
+    case 'deleteRow': {
+      if (state.selectedRows !== null)
+        if (state.selectedRows.length > 0) {
+          for (let i = 0; i < state.selectedRows.length; i++) {
+            state.visible[state.selectedRows[i]].name = "---";
+          }
+        }
+
+      const resultSearch = state.visible.filter(function (e) {
+        return (e.name !== '---');
+      });
+
       return {
         ...state,
-        visible: [...state.visible],
+        visible: [...resultSearch],
+        selectedRows: []
       }
     }
 
+
+    case 'selectRow': {
+
+      const numberSelectedRow = action.payload.target.parentElement.parentElement.id;
+      const classNameSelectedRow = action.payload.target.className;
+      const parentSelectedRow = action.payload.target.parentElement.className;
+      if (classNameSelectedRow === 'demo-icon icon-check-empty' && parentSelectedRow === 'selectorROW') {
+        action.payload.target.className = 'demo-icon icon-check';
+        action.payload.target.parentElement.parentElement.classList.toggle('selected');
+        state.selectedRows.push(numberSelectedRow);
+      }
+      else
+        if (classNameSelectedRow === 'demo-icon icon-check' && parentSelectedRow === 'selectorROW') {
+          action.payload.target.className = 'demo-icon icon-check-empty';
+          action.payload.target.parentElement.parentElement.classList.toggle('selected');
+          const arrayWithoutCurrentValue = state.selectedRows.filter((el) => el !== numberSelectedRow);
+          state.selectedRows = [...arrayWithoutCurrentValue]
+        }
+      return state;
+    }
+
     case 'RefreshTable': {
-      state.visible.pop();
-      state.visible.shift();
+      window.location.reload(true);
+      return {
+        ...state
+      }
+    }
+
+    case 'SortByName': {
+      state.visible.sort((a, b) => a.name > b.name ? 1 : -1);
       return {
         ...state,
-        visible: [...state.original],
+        visible: [...state.visible],
       }
     }
 
@@ -59,7 +97,6 @@ const reducer = (state = {
       const resultSearch = state.visible.filter(function (e) {
         return (e.name.toLowerCase().indexOf(sst) > -1) || (e.city.toLowerCase().indexOf(sst) > -1);
       });
-      console.log(resultSearch);
       return {
         ...state,
         visible: [...resultSearch],
@@ -68,7 +105,6 @@ const reducer = (state = {
 
 
     case 'ChangeSearchString': {
-      console.log(state.searchString);
       state.searchString = action.payload;
       return {
         state
@@ -81,19 +117,31 @@ const reducer = (state = {
 
 
       const rows = [];
+      const header = [
+        'Name',
+        'E-mail',
+        'City',
+        'Phone',
+        'Birthday',
+        'Experience',
+        'IsMarried'
+      ];
+      rows.push(header);
 
       state.visible.forEach(element => {
 
-        const row = [element.name, element.city];
+        const row = [
+          element.name,
+          element.email,
+          element.city,
+          element.phone,
+          element.birthday,
+          element.experience,
+          element.isMarried
+        ];
 
         rows.push(row);
       });
-
-      // const rows = [
-      //   ["name1", "city1", "some other info"],
-      //   ["name2", "city2", "more info"]
-      // ];
-
 
 
       let csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
@@ -101,7 +149,7 @@ const reducer = (state = {
       var encodedUri = encodeURI(csvContent);
       var link = document.createElement("a");
       link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "my_data.csv");
+      link.setAttribute("download", "datagrid.csv");
       document.body.appendChild(link); // Required for FF
 
       link.click();

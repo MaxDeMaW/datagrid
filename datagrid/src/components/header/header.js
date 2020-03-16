@@ -6,11 +6,8 @@ import { connect } from 'react-redux';
 
 import './header.scss';
 
-function searchB() {
-  console.log(document.querySelector('.searchBar').value);
-}
 
-const Header = ({ RefreshTable, Search, SaveTableToCSV }) => {
+const Header = ({ RefreshTable, Search, SaveTableToCSV, deleteRow }) => {
   return (
     <div className="header">
       <div>
@@ -18,8 +15,9 @@ const Header = ({ RefreshTable, Search, SaveTableToCSV }) => {
       </div>
       <div>
         <button onClick={SaveTableToCSV}>CSV</button>
-        <button onClick={RefreshTable}>Вернуть все записи</button>
-        <input className='searchBar' onChange={() => searchB()}></input>
+        <button onClick={deleteRow}><i className="demo-icon icon-trash-empty"></i></button>
+        <button onClick={RefreshTable}>Обновить</button>
+        <input className='searchBar'></input>
         <button onClick={Search}><i className="demo-icon icon-search"></i> </button>
       </div>
     </div>
@@ -36,12 +34,13 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => {
-  const { SaveTableToCSV, RefreshTable, Search } = bindActionCreators(actions, dispatch);
+  const { SaveTableToCSV, RefreshTable, Search, deleteRow } = bindActionCreators(actions, dispatch);
 
   return {
     SaveTableToCSV,
     RefreshTable,
-    Search
+    Search,
+    deleteRow
   }
 };
 
