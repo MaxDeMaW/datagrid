@@ -10,13 +10,14 @@ function searchB() {
   console.log(document.querySelector('.searchBar').value);
 }
 
-const Header = ({ RefreshTable, Search }) => {
+const Header = ({ RefreshTable, Search, SaveTableToCSV }) => {
   return (
     <div className="header">
       <div>
         <h1 className='h1'>DATAGRID</h1>
       </div>
       <div>
+        <button onClick={SaveTableToCSV}>CSV</button>
         <button onClick={RefreshTable}>Вернуть все записи</button>
         <input className='searchBar' onChange={() => searchB()}></input>
         <button onClick={Search}><i className="demo-icon icon-search"></i> </button>
@@ -35,9 +36,10 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => {
-  const { RefreshTable, Search } = bindActionCreators(actions, dispatch);
+  const { SaveTableToCSV, RefreshTable, Search } = bindActionCreators(actions, dispatch);
 
   return {
+    SaveTableToCSV,
     RefreshTable,
     Search
   }

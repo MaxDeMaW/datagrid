@@ -9,7 +9,22 @@ import reducer from './utils/reducer';
 
 import './index.css';
 
-const store = createStore(reducer);
+
+import { devToolsEnhancer } from 'redux-devtools-extension';
+
+const store = createStore(reducer, /* preloadedState, */ devToolsEnhancer(
+  // Specify custom devTools options
+));
+
+
+
+// const store = createStore(reducer);
+
+
+
+
+
+
 
 
 ReactDOM.render(

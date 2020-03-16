@@ -10,7 +10,10 @@ const onCkeckPerson = (event) => {
 
 }
 
-const DataGrid = ({ allVisiblePersons, DeleteElement, SortByExperience }) => {
+const DataGrid = ({ allVisiblePersons, DeleteElement, SortByExperienceUp, SortByExperienceDown, SortByTrue }) => {
+
+
+
   const persons = allVisiblePersons.map(item => {
     const { id, ...itemProps } = item;
     return (
@@ -22,7 +25,7 @@ const DataGrid = ({ allVisiblePersons, DeleteElement, SortByExperience }) => {
         <div className="person__phone">{itemProps.phone}</div>
         <div className="person__birthday">{itemProps.birthday}</div>
         <div className="person__experience">{itemProps.experience}</div>
-        <div className="person__isMarried">{itemProps.isMarried.toString()}</div>
+        <div className="person__isMarried">{itemProps.isMarried ? <i className='demo-icon icon-check'></i> : <i className='demo-icon icon-check-empty'></i>}</div>
       </div>
     );
   });
@@ -39,8 +42,8 @@ const DataGrid = ({ allVisiblePersons, DeleteElement, SortByExperience }) => {
       <div className="person__city">City</div>
       <div className="person__phone">Phone</div>
       <div className="person__birthday">Birthday</div>
-      <div className="person__experience"><div>Experience <i className="demo-icon icon-angle-circled-up" onClick={SortByExperience}></i><i className="demo-icon icon-angle-circled-down"></i></div></div>
-      <div className="person__isMarried">Married</div>
+      <div className="person__experience"><div>Experience <i className="demo-icon icon-angle-circled-up" onClick={SortByExperienceDown}></i><i className="demo-icon icon-angle-circled-down" onClick={SortByExperienceUp}></i></div></div>
+      <div className="person__isMarried">Married<i className="demo-icon icon-check" onClick={SortByTrue}></i></div>
     </div>
 
     {persons}
@@ -57,12 +60,14 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => {
-  const { DeleteElement, RefreshTable, SortByExperience } = bindActionCreators(actions, dispatch);
+  const { DeleteElement, RefreshTable, SortByExperienceUp, SortByExperienceDown, SortByTrue } = bindActionCreators(actions, dispatch);
 
   return {
     DeleteElement,
     RefreshTable,
-    SortByExperience
+    SortByExperienceUp,
+    SortByExperienceDown,
+    SortByTrue
   }
 };
 
